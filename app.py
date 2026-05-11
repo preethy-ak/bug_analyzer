@@ -59,11 +59,52 @@ BUG_KEYWORDS = [
 ]
 
 SYSTEM_KEYWORDS: Dict[str, List[str]] = {
+    # Commerce / domain-specific systems — checked first so they win over
+    # generic technical buckets when keywords overlap (e.g. "sync").
     "OMS": ["order", "checkout", "payment", "refund", "cart", "purchase", "transaction"],
     "IMS": ["inventory", "stock", "quantity", "sync", "warehouse", "qty"],
     "CMS": ["listing", "content", "image", "sku", "catalog", "product page", "title"],
     "PMS": ["discount", "voucher", "promotion", "pricing", "promo", "coupon", "price"],
-    "Chat": ["chat", "buyer message", "cs ", "customer service", "message", "reply"],
+    "Chat": ["chat", "buyer message", "customer service", "buyer reply", "seller reply"],
+
+    # General technical categories — applied to anything that doesn't match a
+    # commerce system. Order is from most specific to most general.
+    "Security": [
+        "security", "auth", "authentication", "login", "logout",
+        "password", "permission", "access denied", "unauthorized",
+        "vulnerability", "breach", "encryption", "token expired", "sso",
+    ],
+    "Mobile": [
+        "mobile", "android", "ios", "iphone", "ipad",
+        "mobile app", "app crash", "responsive",
+    ],
+    "Notification": [
+        "notification", "alert", "email notification", "push notification",
+        "push", "sms", "reminder", "notify",
+    ],
+    "Performance": [
+        "slow", "slowness", "performance", "latency", "lag", "lagging",
+        "timeout", "time out", "hang", "freezing", "frozen",
+        "loading time", "response time", "takes too long",
+    ],
+    "Integration": [
+        "integration", "api ", "webhook", "third party", "third-party",
+        "connector", "oauth", "callback",
+    ],
+    "Dashboard": [
+        "dashboard", "report", "analytics", "metric", "kpi",
+        "widget", "graph", "visualization", "overview screen",
+    ],
+    "Data/Sync": [
+        "data missing", "data mismatch", "data inconsistency", "refresh",
+        "reload", "not updating", "stale data", "data wrong",
+        "data error", "data issue",
+    ],
+    "UI/UX": [
+        "ui", "ux", "layout", "button", "alignment", "css",
+        "styling", "color", "font", "design", "display",
+        "render", "rendering", "misaligned", "screen broken",
+    ],
 }
 
 SIMILARITY_THRESHOLD = 0.55  # cosine similarity to mark two summaries as the same bug
