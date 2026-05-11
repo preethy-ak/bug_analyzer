@@ -59,51 +59,76 @@ BUG_KEYWORDS = [
 ]
 
 SYSTEM_KEYWORDS: Dict[str, List[str]] = {
-    # Commerce / domain-specific systems — checked first so they win over
-    # generic technical buckets when keywords overlap (e.g. "sync").
-    "OMS": ["order", "checkout", "payment", "refund", "cart", "purchase", "transaction"],
-    "IMS": ["inventory", "stock", "quantity", "sync", "warehouse", "qty"],
-    "CMS": ["listing", "content", "image", "sku", "catalog", "product page", "title"],
-    "PMS": ["discount", "voucher", "promotion", "pricing", "promo", "coupon", "price"],
-    "Chat": ["chat", "buyer message", "customer service", "buyer reply", "seller reply"],
+    # Business / core commerce systems — matched first so they win when
+    # keywords overlap with the more general technical buckets below.
+    "OMS": [
+        "order", "checkout", "payment", "refund", "cart",
+        "purchase", "transaction", "order status", "order failed",
+    ],
+    "IMS": [
+        "inventory", "stock", "quantity", "warehouse", "qty",
+        "stock mismatch", "oversell",
+    ],
+    "CMS": [
+        "listing", "content", "image", "sku", "catalog",
+        "product page", "title", "description missing",
+    ],
+    "PMS": [
+        "discount", "voucher", "promotion", "pricing",
+        "promo", "coupon", "price issue",
+    ],
+    "Chat": [
+        "chat", "buyer message", "customer service",
+        "buyer reply", "seller reply", "chat not working",
+    ],
 
-    # General technical categories — applied to anything that doesn't match a
-    # commerce system. Order is from most specific to most general.
+    # Technical categories — order from most specific to most general so
+    # broad terms like "ui" don't swallow more specific matches.
     "Security": [
         "security", "auth", "authentication", "login", "logout",
         "password", "permission", "access denied", "unauthorized",
-        "vulnerability", "breach", "encryption", "token expired", "sso",
+        "token expired", "sso",
     ],
     "Mobile": [
         "mobile", "android", "ios", "iphone", "ipad",
-        "mobile app", "app crash", "responsive",
+        "mobile app", "app crash",
     ],
     "Notification": [
-        "notification", "alert", "email notification", "push notification",
-        "push", "sms", "reminder", "notify",
+        "notification", "alert", "email", "push",
+        "sms", "reminder",
     ],
     "Performance": [
-        "slow", "slowness", "performance", "latency", "lag", "lagging",
-        "timeout", "time out", "hang", "freezing", "frozen",
-        "loading time", "response time", "takes too long",
+        "slow", "latency", "lag", "timeout", "hang",
+        "freezing", "loading time", "response time",
     ],
     "Integration": [
-        "integration", "api ", "webhook", "third party", "third-party",
-        "connector", "oauth", "callback",
+        "integration", "api", "webhook", "third party",
+        "oauth", "callback",
     ],
     "Dashboard": [
-        "dashboard", "report", "analytics", "metric", "kpi",
-        "widget", "graph", "visualization", "overview screen",
+        "dashboard", "report", "analytics", "kpi",
+        "graph", "visualization",
     ],
     "Data/Sync": [
-        "data missing", "data mismatch", "data inconsistency", "refresh",
-        "reload", "not updating", "stale data", "data wrong",
-        "data error", "data issue",
+        "data mismatch", "not updating", "stale data",
+        "data wrong", "sync issue", "sync failed",
     ],
     "UI/UX": [
-        "ui", "ux", "layout", "button", "alignment", "css",
-        "styling", "color", "font", "design", "display",
-        "render", "rendering", "misaligned", "screen broken",
+        "ui", "ux", "alignment", "button", "layout",
+        "design", "display", "render", "screen broken",
+    ],
+    "Backend": [
+        "server error", "500 error", "database",
+        "backend failure",
+    ],
+    "Frontend": [
+        "frontend", "javascript", "page crash",
+    ],
+    "Configuration": [
+        "config", "setup issue", "misconfiguration",
+    ],
+    "User Error": [
+        "wrong input", "user mistake", "invalid entry",
     ],
 }
 
