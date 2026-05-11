@@ -895,25 +895,49 @@ def main() -> None:
         st.dataframe(df[preview_cols], use_container_width=True, hide_index=True)
 
     # ---------- Export ----------
-    st.subheader("Download Report")
+    st.subheader("Download Reports")
+
     text_report = build_text_report(
         metrics, sys_df, repeated_df, acc_df, insights, recs, account_col
     )
     enriched_csv = df.to_csv(index=False).encode("utf-8")
+    repeat_clusters = int((df.loc[df["Bug_Flag"] == "Bug", "Repeat_Count"] > 1).sum())
+    pptx_bytes = build_pptx_report(
+        metrics, sys_df, repeated_df, acc_df, cross_df,
+        rep_df, asg_df, trend, insights, recs, account_col, repeat_clusters,
+    )
+    csv_zip_bytes = build_supporting_csvs_zip(
+        df, sys_df, repeated_df, acc_df, cross_df,
+        rep_df, asg_df, trend, insights, recs,
+    )
 
-    d1, d2 = st.columns(2)
+    d1, d2, d3, d4 = st.columns(4)
     d1.download_button(
-        label="Download text report",
-        data=text_report.encode("utf-8"),
-        file_name="jira_bug_report.txt",
-        mime="text/plain",
+        label="PowerPoint deck (.pptx)",
+        data=pptx_bytes,
+        file_name="jira_bug_report.pptx",
+        mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
         use_container_width=True,
     )
     d2.download_button(
-        label="Download enriched CSV",
+        label="Supporting CSVs (.zip)",
+        data=csv_zip_bytes,
+        file_name="jira_bug_supporting_csvs.zip",
+        mime="application/zip",
+        use_container_width=True,
+    )
+    d3.download_button(
+        label="Enriched CSV",
         data=enriched_csv,
         file_name="jira_bugs_enriched.csv",
         mime="text/csv",
+        use_container_width=True,
+    )
+    d4.download_button(
+        label="Text report",
+        data=text_report.encode("utf-8"),
+        file_name="jira_bug_report.txt",
+        mime="text/plain",
         use_container_width=True,
     )
 
